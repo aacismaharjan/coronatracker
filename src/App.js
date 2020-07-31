@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './App.css'
+import NavBar from "./components/NavBar"
+import Cards from "./components/Cards/Cards"
+import CountryPicker from "./components/CountryPicker/CountryPicker"
+import Charts from "./components/Charts/Charts"
+import { fetchData } from "./api"
+import Particles from "react-particles-js"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    data: {},
+    country: "",
+  }
+
+  async componentDidMount() {
+    const fetchedData = await fetchData();
+    this.setState({ data: fetchedData });
+  }
+
+  handleCountryChange = async (country) => {
+    const fetchedData = await fetchData(country);
+    this.setState({ data: fetchedData, country: country });
+  }
+
+  render() {
+    const { data, country } = this.state;
+    return (
+      <React.Fragment>
+        <NavBar />
+        <Cards data={data} />
+        <CountryPicker handleCountryChange={this.handleCountryChange} />
+        <Charts data={data} country={country} />
+        <Particles className="effects" />
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;

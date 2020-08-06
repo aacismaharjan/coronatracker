@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from "./Card";
+import Loading from "../Loading"
 
 class Cards extends Component {
   state = {
@@ -21,7 +22,7 @@ class Cards extends Component {
 
   render() {
     const { confirmed, recovered, deaths, lastUpdate } = this.props.data;
-    if (!confirmed) return "Loading...";
+    if (!confirmed) return <Loading />;
 
     return (
       <div className="container my-5">

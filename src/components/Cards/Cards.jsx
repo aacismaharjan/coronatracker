@@ -1,31 +1,39 @@
 import React from 'react'
 import Card from './Card'
+import Loading from '../Loading'
+import { findByLabelText } from '@testing-library/react'
 
 const Cards = (props) => {
-  const { lastUpdate } = props.data
-  const cardItems = [
+  const { lastUpdate, recovered, confirmed, deaths } = props.data
+
+  const cardItems = confirmed && [
     {
       name: 'Infected',
       text: 'Number of active cases of COVID-19',
-      cases: props.data.recovered.value,
+      cases: recovered.value,
     },
     {
       name: 'Recovered',
       text: 'Number of active cases of COVID-19',
-      cases: props.data.confirmed.value,
+      cases: confirmed.value,
     },
     {
       name: 'Deaths',
       text: 'Number of active cases of COVID-19',
-      cases: props.data.deaths.value,
+      cases: deaths.value,
     },
   ]
+
   return (
     <div className='container my-5'>
       <div className='row'>
-        {cardItems.map((card, index) => (
-          <Card cards={{ ...card, lastUpdate }} key={index} />
-        ))}
+        {cardItems ? (
+          cardItems.map((card, index) => (
+            <Card cards={{ ...card, lastUpdate }} key={index} />
+          ))
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   )

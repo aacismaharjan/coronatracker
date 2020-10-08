@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import NavBar from './components/NavBar'
 import Cards from './components/Cards/Cards'
@@ -8,40 +8,45 @@ import Footer from './components/Footer'
 import { fetchData } from './api'
 import Particles from 'react-particles-js'
 
-class App extends Component {
-  state = {
-    data: {},
-    country: '',
-    loading: true,
-  }
+const App = () => {
+  const [data, setData] = useState({})
+  const [country, setCountry] = useState('')
+  const [loading, setLoading] = useState(true)
 
-  async componentDidMount() {
-    const fetchedData = await fetchData()
-    if (fetchedData) this.setState({ data: fetchedData, loading: false })
-  }
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetchData()
+      if (res) {
+        setData(res)
+        setLoading(false)
+      }
+    }
 
-  handleCountryChange = async (country) => {
-    this.setState({ loading: true })
+    getData()
+  }, [])
+
+  const handleCountryChange = async (country) => {
+    setLoading(true)
     const fetchedData = await fetchData(country)
-    if (fetchedData)
-      this.setState({ data: fetchedData, country: country, loading: false })
+    if (fetchedData) {
+      setData(fetchedData)
+      setCountry(country)
+      setLoading(false)
+    }
   }
 
-  render() {
-    const { data, country, loading } = this.state
-    return (
-      !loading && (
-        <React.Fragment>
-          <NavBar />
-          <Cards data={data} />
-          <CountryPicker handleCountryChange={this.handleCountryChange} />
-          <Charts data={data} country={country} />
-          <Particles className='effects' />
-          <Footer />
-        </React.Fragment>
-      )
+  return (
+    !loading && (
+      <React.Fragment>
+        <NavBar />
+        <Cards data={data} />
+        <CountryPicker handleCountryChange={handleCountryChange} />
+        <Charts data={data} country={country} />
+        <Particles className='effects' />
+        <Footer />
+      </React.Fragment>
     )
-  }
+  )
 }
 
 export default App

@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Loading extends Component {
-  state = {}
-  render() {
-    return (
-      <div className="d-flex justify-content-center align-center">
-        <div className="spinner-border text-secondary m-5" role="status">
-          <span className="sr-only">Loading...</span>
-        </div> <br />
+const Loading = () => {
+  eturn(
+    <div className='d-flex justify-content-center align-center'>
+      <div className='spinner-border text-secondary m-5' role='status'>
+        <span className='sr-only'>Loading...</span>
       </div>
-    );
-  }
+    </div>
+  )
 }
 
-export default Loading;
+export default Loading

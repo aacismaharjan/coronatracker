@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Footer extends Component {
-  state = {}
-  render() {
-    return (
-      <footer>
-        <div className="footer-copyright py-3 text-center">
-          <div className="container-fluid">
-            © {new Date().getFullYear()} Copyright: <a href="https://www.fb.com/aashishmaharjan.2001"> Aashish Maharjan </a>
-          </div>
+const Footer = () => {
+  return (
+    <footer>
+      <div className='footer-copyright py-3 text-center'>
+        <div className='container-fluid'>
+          © {new Date().getFullYear()} Copyright:{' '}
+          <a href='https://www.fb.com/aashishmaharjan.2001'>Aashish Maharjan</a>
         </div>
-      </footer>
-    );
-  }
+      </div>
+    </footer>
+  )
 }
 
-export default Footer;
+export default Footer

@@ -1,17 +1,16 @@
-import React, { Component } from 'react';
-import logo from "../assets/logo.png"
+import React from 'react'
+import logo from '../assets/logo.png'
 
-class NavBar extends Component {
-  state = {}
-  render() {
-    return (
-      <nav className="navbar navbar-light bg-light">
-        <div className="container">
-          <a className="navbar-brand" href="index.html"><img src={logo} alt="" /></a>
-        </div>
-      </nav>
-    );
-  }
+const NavBar = () => {
+  return (
+    <nav className='navbar navbar-light bg-light'>
+      <div className='container'>
+        <a className='navbar-brand' href='/'>
+          <img src={logo} alt='Corona Logo' />
+        </a>
+      </div>
+    </nav>
+  )
 }
 
-export default NavBar;
+export default NavBar

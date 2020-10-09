@@ -1,8 +1,13 @@
 import React from 'react'
 import Card from './Card'
 import Loading from '../Loading'
+import { useContext } from 'react'
+import { CoronaContext } from '../../context'
 
-const Cards = ({ data: { lastUpdate, recovered, confirmed, deaths } }) => {
+const Cards = () => {
+  const { caseData } = useContext(CoronaContext)
+  const { lastUpdate, recovered, confirmed, deaths } = caseData
+
   const cardItems = confirmed
     ? [
         {

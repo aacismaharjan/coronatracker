@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { fetchDailyData } from '../../api'
+import React, { useContext } from 'react'
 import { Line, Bar } from 'react-chartjs-2'
+import { CoronaContext } from '../../context'
 
-const Charts = (props) => {
-  const [data, setData] = useState([])
+const Charts = () => {
+  const { caseData, country, caseDailyData } = useContext(CoronaContext)
+  const { confirmed, recovered, deaths } = caseData
+  const dailyData = caseDailyData
 
-  useEffect(() => {
-    const getData = async () => {
-      const res = await fetchDailyData()
-      if (res) setData(res)
-    }
-
-    getData()
-  }, [])
-
-  const dailyData = data
   const linechart = dailyData.length ? (
     <Line
       data={{
@@ -38,10 +30,6 @@ const Charts = (props) => {
     />
   ) : null
 
-  const {
-    data: { confirmed, recovered, deaths },
-    country,
-  } = props
   const barChart = confirmed ? (
     <Bar
       data={{
